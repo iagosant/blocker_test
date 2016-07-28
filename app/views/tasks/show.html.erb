@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @task.detail %>
+  <%= link_to "add blocker", new_task_blocker_path(@task) %>
+</p>
+<ul>
+  <% @task.blockers.each do |blocker| %>
+  <li><%= blocker.id %><%= blocker.detail %></li>
+  <% end %>
+</ul>
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>
