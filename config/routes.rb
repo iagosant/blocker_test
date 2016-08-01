@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  resources :collaborations
-  resources :users do
-    resources :lists do
-      resources :tasks do
-        resources :blockers
-      end
-    end
+  resources :collaborations do
+    resources :users
+    resources :lists
+    resources :tasks
+    resources :blockers
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -11,12 +11,12 @@
   </thead>
 
   <tbody>
-    <% @tasks.each do |task| %>
+    <% @collaboration.tasks.each do |task| %>
       <tr>
         <td><%= task.detail %></td>
-        <td><%= link_to 'Show', task %></td>
-        <td><%= link_to 'Edit', edit_task_path(task) %></td>
-        <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%#= link_to 'Show', collaboration_task_path %></td>
+        <td><%#= link_to 'Edit', edit_collaboration_task_path(task) %></td>
+        <td><%#= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +24,4 @@
 
 <br>
 
-<%= link_to 'New Task', new_task_path %>
+<%= link_to 'New Task', new_collaboration_task_path(@collaboration) %>

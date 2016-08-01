@@ -4,7 +4,11 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    # byebug
+    @collaboration = Collaboration.find(3)
+    @user = @collaboration.user
+    @list = @collaboration.list
+    @tasks = @collaboration.tasks
   end
 
   # GET /tasks/1
@@ -14,26 +18,30 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    @task = Task.new
+    # byebug
+    @collaboration = Collaboration.find(params[:collaboration_id])
+    @task = @collaboration.tasks.new
   end
 
   # GET /tasks/1/edit
   def edit
+    @collaboration = Colaboration.find(params[:id])
   end
 
   # POST /tasks
   # POST /tasks.json
   def create
-    # byebug
-    @task = Task.new(task_params)
+    byebug
+    @collaboration = Collaboration.find(params[:collaboration_id])
+    @task = @collaboration.tasks.new(task_params)
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @task }
+        format.html { redirect_to @collaboration, notice: 'Task was successfully created.' }
+        format.json { render :show, status: :created, location: @collaboration }
       else
         format.html { render :new }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -71,6 +79,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:detail)
+      params.require(:task).permit(:detail, :task)
     end
 end
