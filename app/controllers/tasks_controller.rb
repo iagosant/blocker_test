@@ -5,10 +5,10 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     # byebug
-    @collaboration = Collaboration.find(3)
-    @user = @collaboration.user
-    @list = @collaboration.list
-    @tasks = @collaboration.tasks
+    # @collaboration = Collaboration.find(3)
+    # @user = @collaboration.user
+    # @list = @collaboration.list
+    # @tasks = @collaboration.tasks
   end
 
   # GET /tasks/1
