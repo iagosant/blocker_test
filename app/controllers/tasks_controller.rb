@@ -18,8 +18,9 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    # byebug
-    @collaboration = Collaboration.find(params[:collaboration_id])
+    byebug
+    @user = User.find(2)
+    @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
     @task = @collaboration.tasks.new
   end
 
@@ -32,7 +33,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     byebug
-    @collaboration = Collaboration.find(params[:collaboration_id])
+
     @task = @collaboration.tasks.new(task_params)
 
     respond_to do |format|
@@ -79,6 +80,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:detail, :task)
+      params.require(:task).permit(:detail, :task, :user)
     end
 end

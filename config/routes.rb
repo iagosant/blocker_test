@@ -1,11 +1,18 @@
 Rails.application.routes.draw do
-  resources :collaborations do
-    resources :users
-    resources :lists
-    resources :tasks
-    resources :blockers
+  resources :users do
+    resources :collaborations
+    resources :lists, only: [:new, :create, :index]
   end
 
+  resources :lists, only: [:show, :edit, :update, :destroy] do
+    resources :tasks, only: [:new, :create, :index]
+  end
+
+  resources :tasks, only: [:show, :edit, :update, :destroy] do
+    resources :blockers, only: [:new, :create, :index]
+  end
+
+  resources :blockers, only: [:show, :edit, :update, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
