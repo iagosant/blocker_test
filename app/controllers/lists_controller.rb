@@ -4,7 +4,9 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-    @lists = List.all
+
+    @collaboration = Collaboration.find(3)
+    @lists = 
   end
 
   # GET /lists/1
