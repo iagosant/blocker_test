@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
   resources :users do
-    resources :collaborations
-    resources :lists, only: [:new, :create, :index]
+    resources :collaborations, only: [:new, :create, :index]
+    resources :lists
   end
 
-  resources :lists, only: [:show, :edit, :update, :destroy] do
+  resources :collaborations, only: [:show, :edit, :update, :destroy] do
     resources :tasks, only: [:new, :create, :index]
   end
 
