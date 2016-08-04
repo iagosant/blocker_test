@@ -1,5 +1,5 @@
-<%= form_for ([@collaboration,@task]) do |f| %>
 
+<%= form_for lists_tasks_url do |f| %>
   <div class="field">
     <%= f.label :detail %><br>
     <%= f.text_field :detail %>
