@@ -4,9 +4,15 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    # byebug
-    @collaboration = Collaboration.find(3)
+    user = User.find(1)
+    # if params[:list_id]
+    #   @collaboration = Collaboration.where(params[:list_id],user.id)
+    # else
+    #
+    # end
+    @collaboration = Collaboration.find(1)
     @user = @collaboration.user
+    byebug
     @list = @collaboration.list
     @tasks = @collaboration.tasks
   end
@@ -33,7 +39,8 @@ class TasksController < ApplicationController
     @user = User.find(2)
     @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
     byebug
-
+    @user = User.find(1)
+    @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
     @task = @collaboration.tasks.new(task_params)
 
     respond_to do |format|
@@ -80,6 +87,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:detail, :task, :user)
+      params.require(:task).permit(:detail, :task)
     end
 end

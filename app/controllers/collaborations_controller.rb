@@ -14,7 +14,6 @@ class CollaborationsController < ApplicationController
 
   # GET /collaborations/new
   def new
-
     @collaboration = Collaboration.new
     @user = User.first
     @list = List.first

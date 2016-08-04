@@ -4,9 +4,7 @@ class ListsController < ApplicationController
   # GET /lists
   # GET /lists.json
   def index
-
-    @collaboration = Collaboration.find(3)
-    # @lists =
+    @lists = List.all
   end
 
   # GET /lists/1
@@ -27,7 +25,6 @@ class ListsController < ApplicationController
   # POST /lists.json
   def create
     @list = List.new(list_params)
-
     respond_to do |format|
       if @list.save
         format.html { redirect_to @list, notice: 'List was successfully created.' }
