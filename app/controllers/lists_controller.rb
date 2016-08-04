@@ -6,7 +6,7 @@ class ListsController < ApplicationController
   def index
 
     @collaboration = Collaboration.find(3)
-    @lists = 
+    # @lists =
   end
 
   # GET /lists/1

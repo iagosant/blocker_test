@@ -18,10 +18,7 @@ class TasksController < ApplicationController
 
   # GET /tasks/new
   def new
-    byebug
-    @user = User.find(2)
-    @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
-    @task = @collaboration.tasks.new
+    @task = Task.new
   end
 
   # GET /tasks/1/edit
@@ -32,6 +29,9 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+
+    @user = User.find(2)
+    @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
     byebug
 
     @task = @collaboration.tasks.new(task_params)
