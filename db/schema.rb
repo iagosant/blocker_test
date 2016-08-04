@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160803195434) do
+ActiveRecord::Schema.define(version: 20160804144434) do
 
   create_table "collaborations", force: :cascade do |t|
     t.integer  "user_id"
@@ -36,16 +36,16 @@ ActiveRecord::Schema.define(version: 20160803195434) do
 
   create_table "tasks", force: :cascade do |t|
     t.string   "detail"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "parent_task_id"
-    t.integer  "collaboration_id"
     t.integer  "list_id"
+    t.integer  "user_id"
   end
 
-  add_index "tasks", ["collaboration_id"], name: "index_tasks_on_collaboration_id"
   add_index "tasks", ["list_id"], name: "index_tasks_on_list_id"
   add_index "tasks", ["parent_task_id"], name: "index_tasks_on_parent_task_id"
+  add_index "tasks", ["user_id"], name: "index_tasks_on_user_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

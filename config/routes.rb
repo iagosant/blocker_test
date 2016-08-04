@@ -1,14 +1,13 @@
 Rails.application.routes.draw do
   resources :users do
-    resources :collaborations, only: [:new, :create, :index]
-    resources :lists
+    resources :lists, only: [:new, :create, :index]
   end
 
-  resources :collaborations, only: [:show, :edit, :update, :destroy] do
+  resources :lists do
     resources :tasks, only: [:new, :create, :index]
   end
 
-  resources :tasks, only: [:show, :edit, :update, :destroy] do
+  resources :tasks do
     resources :blockers, only: [:new, :create, :index]
   end
 
@@ -17,7 +16,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'tasks#index'
+  root 'lists#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
