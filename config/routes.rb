@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   end
 
   resources :lists do
-    resources :tasks, only: [:new, :create, :index]
+    resources :tasks, only: [:new, :create, :index] do
+      member do
+        patch :complete
+      end
+    end
   end
 
   resources :tasks do

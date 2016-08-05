@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   has_many :created_lists, class_name: "List"
   # # has_many :tasks
   # has_many :lists, :through => :tasks
+  has_one :all_tasks, class_name: "List"
   has_many :collaborations
   has_many :collaboration_lists, through: :collaborations, :source => :list
 
