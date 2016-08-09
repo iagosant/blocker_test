@@ -4,18 +4,19 @@ Rails.application.routes.draw do
   end
 
   resources :lists do
-    resources :tasks, only: [:new, :create, :index] do
+    resources :tasks do
+      resources :blockers
       member do
         patch :complete
       end
     end
   end
 
-  resources :tasks do
-    resources :blockers, only: [:new, :create, :index]
-  end
+  # resources :tasks do
+  #   resources :blockers, only: [:new, :create, :index]
+  # end
 
-  resources :blockers, only: [:show, :edit, :update, :destroy]
+  # resources :blockers, only: [:show, :edit, :update, :destroy]
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

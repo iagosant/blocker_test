@@ -10,6 +10,7 @@ class ListsController < ApplicationController
   # GET /lists/1
   # GET /lists/1.json
   def show
+
   end
 
   # GET /lists/new
@@ -63,6 +64,7 @@ class ListsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_list
+      byebug
       @list = List.find(params[:id])
     end
 

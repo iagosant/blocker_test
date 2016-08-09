@@ -1,20 +1,11 @@
 class TasksController < ApplicationController
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
+  before_action :set_task, except: [:create]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    user = User.find(1)
-    # if params[:list_id]
-    #   @collaboration = Collaboration.where(params[:list_id],user.id)
-    # else
-    #
-    # end
-    @collaboration = Collaboration.find(1)
-    @user = @collaboration.user
-    byebug
-    @list = @collaboration.list
-    @tasks = @collaboration.tasks
+    @tasks = @list.tasks
   end
 
   # GET /tasks/1
@@ -29,27 +20,33 @@ class TasksController < ApplicationController
 
   # GET /tasks/1/edit
   def edit
-    @collaboration = Colaboration.find(params[:id])
+
   end
+
+  def complete
+		@task.update_attribute(:completed_at, Time.now)
+		redirect_to @list, notice: "Todo item completed"
+	end
 
   # POST /tasks
   # POST /tasks.json
   def create
-
-    @user = User.find(2)
-    @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
-    byebug
-    @user = User.find(1)
-    @collaboration = Collaboration.find_by(list_id: params[:list_id], user_id: @user.id)
-    @task = @collaboration.tasks.new(task_params)
-
+    # byebug
+    @list = List.find(params[:list_id])
+    @task = @list.tasks.build(task_params)
+    # byebug
+    if !task_params[:user_id]
+      # current user
+      @user = User.find(1)
+      @task.update(user_id:@user.id)
+    end
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @collaboration, notice: 'Task was successfully created.' }
-        format.json { render :show, status: :created, location: @collaboration }
+        format.html { redirect_to @list, notice: 'Task was successfully created.' }
+        format.json
       else
         format.html { render :new }
-        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
+        format.json
       end
     end
   end
@@ -71,22 +68,28 @@ class TasksController < ApplicationController
   # DELETE /tasks/1
   # DELETE /tasks/1.json
   def destroy
-    @task.destroy
-    respond_to do |format|
-      format.html { redirect_to tasks_url}
-# rename_column :table, :old_column, :new_column
-      format.json { head :no_content }
-    end
+    if @task.destroy
+			flash[:success] = "Todo List item was deleted."
+		else
+			flash[:error] = "Todo List item could not be deleted."
+		end
+		redirect_to @todo_list
+
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    # def set_list
+    #
+		#   @list = List.find(params[:list_id])
+	  # end
+
     def set_task
-      @task = Task.find(params[:id])
+      @task = @list.tasks.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:detail, :task)
+      params.require(:task).permit(:detail, :list_id, :user_id,)
     end
 end

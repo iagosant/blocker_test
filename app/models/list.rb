@@ -1,6 +1,6 @@
 class List < ActiveRecord::Base
   belongs_to :owner, class_name:"User", foreign_key:"user_id"
-
+  belongs_to :user
   # has_many :task
   # has_many :users, :through => :tasks
   has_many :tasks
